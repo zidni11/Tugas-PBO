@@ -3,7 +3,14 @@ public class COD extends Pembayaran {
 
     public COD(String idTransaksi, double jumlah, String alamatPengiriman) {
         super(idTransaksi, jumlah);
+        if (alamatPengiriman == null || alamatPengiriman.isBlank()) {
+            throw new IllegalArgumentException("Alamat pengiriman tidak boleh kosong");
+        }
         this.alamatPengiriman = alamatPengiriman;
+    }
+
+    public String getAlamatPengiriman() {
+        return alamatPengiriman;
     }
 
     @Override

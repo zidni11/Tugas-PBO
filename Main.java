@@ -17,5 +17,18 @@ public class Main {
         // Menjalankan checkout
         Checkout checkout = new Checkout();
         checkout.prosesCheckout(transaksiList);
+
+        // Demonstrasi Class Produk (equals & toString)
+        Produk prod1 = new Produk("PRD01", "Mechanical Keyboard", 450000);
+        Produk prod2 = new Produk("PRD01", "Mechanical Keyboard RGB", 500000);
+        Produk prod3 = new Produk("PRD02", "Wireless Mouse", 150000);
+
+        // Otomatis memanggil toString()
+        System.out.println(prod1);
+        System.out.println(prod3);
+
+        // Membandingkan objek dengan equals()
+        System.out.println("Apakah prod1 sama dengan prod2? " + prod1.equals(prod2)); // true (kode sama: PRD01)
+        System.out.println("Apakah prod1 sama dengan prod3? " + prod1.equals(prod3)); // false (kode beda)
     }
 }
