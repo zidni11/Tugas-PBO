@@ -46,15 +46,12 @@ public class Produk {
     // Override equals() untuk membandingkan kesamaan dua objek Produk berdasarkan kodeProduk
     @Override
     public boolean equals(Object obj) {
-        // 1. Cek apakah menunjuk ke alamat memori yang sama
         if (this == obj) {
             return true;
         }
-        // 2. Cek apakah objek yang dibandingkan null atau bukan turunan Produk
         if (!(obj instanceof Produk)) {
             return false;
         }
-        // 3. Casting objek ke tipe Produk dan bandingkan atribut kuncinya
         Produk produkLain = (Produk) obj;
         return Objects.equals(this.kodeProduk, produkLain.kodeProduk);
     }

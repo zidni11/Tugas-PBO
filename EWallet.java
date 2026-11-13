@@ -1,8 +1,8 @@
 public class EWallet extends Pembayaran {
     private String namaAkun;
 
-    public EWallet(String idTransaksi, double jumlah, String namaAkun) {
-        super(idTransaksi, jumlah);
+    public EWallet(String nomor, double jumlah, String namaAkun) {
+        super(nomor, jumlah);
         if (namaAkun == null || namaAkun.isBlank()) {
             throw new IllegalArgumentException("Nama akun tidak boleh kosong");
         }
@@ -14,7 +14,12 @@ public class EWallet extends Pembayaran {
     }
 
     @Override
-    public void prosesPembayaran() {
-        System.out.println("Memproses pembayaran via E-Wallet atas nama: " + namaAkun);
+    public long hitungBiaya() {
+        return Math.round(jumlah * 0.015);
+    }
+
+    @Override
+    protected String detailPembayaran() {
+        return "E-Wallet (" + namaAkun + ")";
     }
 }

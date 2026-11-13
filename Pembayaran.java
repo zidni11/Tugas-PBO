@@ -1,35 +1,46 @@
 import java.util.Locale;
 
 public abstract class Pembayaran {
-    private String idTransaksi;
-    private double jumlah;
+    protected String nomor;
+    protected double jumlah;
 
-    public Pembayaran(String idTransaksi, double jumlah) {
-        // Validasi agar objek tidak dibuat dengan data yang tidak valid
-        if (idTransaksi == null || idTransaksi.isBlank()) {
-            throw new IllegalArgumentException("ID transaksi tidak boleh kosong");
+    public Pembayaran(String nomor, double jumlah) {
+        if (nomor == null || nomor.isBlank()) {
+            throw new IllegalArgumentException("Nomor transaksi tidak boleh kosong");
         }
         if (jumlah < 0) {
             throw new IllegalArgumentException("Jumlah tidak boleh negatif");
         }
-        this.idTransaksi = idTransaksi;
+        this.nomor = nomor;
         this.jumlah = jumlah;
     }
 
-    // Getter (encapsulation)
-    public String getIdTransaksi() {
-        return idTransaksi;
+    public String getNomor() {
+        return nomor;
     }
 
     public double getJumlah() {
         return jumlah;
     }
 
-    // Method abstrak yang wajib di-override oleh subclass
-    public abstract void prosesPembayaran();
+    public abstract long hitungBiaya();
 
-    public void infoTransaksi() {
-        System.out.println("ID Transaksi: " + idTransaksi + " | Jumlah: Rp "
-                + String.format(Locale.forLanguageTag("id-ID"), "%,.0f", jumlah));
+    protected String detailPembayaran() {
+        return "-";
+    }
+
+    public final void proses() {
+        long biaya = hitungBiaya();
+        double total = jumlah + biaya;
+
+        System.out.println("Nomor Transaksi : " + nomor);
+        System.out.println("Jumlah          : " + formatRupiah(jumlah));
+        System.out.println("Biaya           : " + formatRupiah(biaya));
+        System.out.println("Total           : " + formatRupiah(total));
+        System.out.println("Detail          : " + detailPembayaran());
+    }
+
+    protected static String formatRupiah(double nilai) {
+        return "Rp " + String.format(Locale.forLanguageTag("id-ID"), "%,.0f", nilai);
     }
 }

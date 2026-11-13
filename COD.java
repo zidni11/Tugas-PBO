@@ -1,8 +1,8 @@
 public class COD extends Pembayaran {
     private String alamatPengiriman;
 
-    public COD(String idTransaksi, double jumlah, String alamatPengiriman) {
-        super(idTransaksi, jumlah);
+    public COD(String nomor, double jumlah, String alamatPengiriman) {
+        super(nomor, jumlah);
         if (alamatPengiriman == null || alamatPengiriman.isBlank()) {
             throw new IllegalArgumentException("Alamat pengiriman tidak boleh kosong");
         }
@@ -14,7 +14,12 @@ public class COD extends Pembayaran {
     }
 
     @Override
-    public void prosesPembayaran() {
-        System.out.println("Pesanan COD dikirim ke alamat: " + alamatPengiriman);
+    public long hitungBiaya() {
+        return jumlah < 100000 ? 10000L : 0L;
+    }
+
+    @Override
+    protected String detailPembayaran() {
+        return "COD ke alamat: " + alamatPengiriman;
     }
 }
